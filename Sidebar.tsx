@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { RESUME_DATA, THEME_COLOR, GRADIENT_PRIMARY } from '../constants';
+import { RESUME_DATA, THEME_COLOR, GRADIENT_PRIMARY } from "./constants";
 
 const Sidebar: React.FC = () => {
   return (
