@@ -1,16 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { RESUME_DATA, THEME_COLOR, GRADIENT_PRIMARY, GRADIENT_SUBTLE } from './constants';
 import Sidebar from './Sidebar';
+import profilePhoto from './photo.jpg';
 
 const App: React.FC = () => {
   const [isAtsMode, setIsAtsMode] = useState(false);
-  const [profileImage, setProfileImage] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const savedImage = localStorage.getItem('robert_kaba_photo');
-    if (savedImage) setProfileImage(savedImage);
-  }, []);
 
   const handlePrint = () => {
     setTimeout(() => {
@@ -18,29 +12,8 @@ const App: React.FC = () => {
     }, 1500);
   };
 
-  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setProfileImage(base64String);
-        localStorage.setItem('robert_kaba_photo', base64String);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col items-center sm:py-6 px-0 sm:px-4 font-sans text-slate-900 selection:bg-red-100">
-      
-      <input 
-        type="file" 
-        ref={fileInputRef} 
-        onChange={handlePhotoUpload} 
-        accept="image/*" 
-        className="hidden" 
-      />
 
       {/* Navigation */}
       <nav className="max-w-[210mm] w-full mb-6 flex flex-col sm:flex-row gap-4 justify-between items-center no-print px-4 sm:px-0">
@@ -48,9 +21,7 @@ const App: React.FC = () => {
           <button onClick={() => setIsAtsMode(false)} className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${!isAtsMode ? 'bg-slate-900 text-white' : 'text-slate-500'}`}>Executive</button>
           <button onClick={() => setIsAtsMode(true)} className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all ${isAtsMode ? 'bg-slate-900 text-white' : 'text-slate-500'}`}>Mode ATS</button>
         </div>
-        
         <div className="flex gap-2">
-          
           <button onClick={handlePrint} style={{ background: isAtsMode ? '#1e293b' : THEME_COLOR }} className="flex items-center gap-3 text-white px-8 py-2.5 rounded-lg font-bold text-sm shadow-lg hover:brightness-110 active:scale-95 transition-all">
             <i className="fa-solid fa-file-pdf"></i> Imprimer / PDF
           </button>
@@ -59,7 +30,7 @@ const App: React.FC = () => {
 
       {/* Container CV Format A4 */}
       <div className={`cv-container max-w-[210mm] min-h-[297mm] w-full bg-white shadow-2xl relative sm:rounded-sm flex flex-col ${isAtsMode ? 'overflow-visible' : 'overflow-hidden'}`}>
-        
+
         {!isAtsMode && <div className="h-1.5 w-full shrink-0" style={{ background: THEME_COLOR }}></div>}
 
         {isAtsMode ? (
@@ -113,27 +84,12 @@ const App: React.FC = () => {
             </section>
           </div>
         ) : (
-          <div className="flex flex-row print-layout flex-1 overflow-hidden">
-            <main className="main-col flex-1 p-6 sm:p-10 overflow-hidden bg-white">
-              
-              <header className="flex gap-8 items-start mb-10">
-                <div 
-                  className="w-32 h-44 flex-shrink-0 rounded-xl shadow-lg flex items-center justify-center relative overflow-hidden group cursor-pointer border border-slate-100" 
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  <div className="w-full h-full bg-slate-50 flex items-center justify-center">
-                    {profileImage ? (
-                      <img src={profileImage} alt={RESUME_DATA.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="flex flex-col items-center text-slate-200">
-                        <i className="fa-solid fa-user text-5xl mb-2"></i>
-                        <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Ajouter Photo</span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center no-print">
-                    <i className="fa-solid fa-camera text-white text-xl"></i>
-                  </div>
+          <div className="flex flex-col sm:flex-row print-layout flex-1 overflow-visible">
+            <main className="main-col flex-1 p-6 sm:p-10 overflow-visible bg-white">
+
+              <header className="flex flex-col sm:flex-row gap-8 items-start mb-10">
+                <div className="w-32 h-44 flex-shrink-0 rounded-xl shadow-lg relative overflow-hidden border border-slate-100">
+                  <img src={profilePhoto} alt={RESUME_DATA.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1 pt-4">
                   <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-2 leading-none">{RESUME_DATA.name}</h1>
@@ -203,7 +159,7 @@ const App: React.FC = () => {
               </section>
             </main>
 
-            <aside className="side-col w-[32%] bg-slate-50 p-6 sm:p-8 border-l border-slate-200 shadow-inner">
+            <aside className="side-col w-full sm:w-[32%] bg-slate-50 p-6 sm:p-8 border-l border-slate-200 shadow-inner">
               <Sidebar />
             </aside>
           </div>
