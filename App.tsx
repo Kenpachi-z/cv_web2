@@ -31,109 +31,6 @@ const App: React.FC = () => {
     }
   };
 
-  const handleExportHtml = () => {
-    const cvElement = document.querySelector('.cv-container');
-    if (!cvElement) return;
-
-    const cvClone = cvElement.cloneNode(true) as HTMLElement;
-    
-    const currentPhoto = localStorage.getItem('robert_kaba_photo') || profileImage;
-    if (currentPhoto) {
-      const imgInClone = cvClone.querySelector('img');
-      if (imgInClone) {
-        imgInClone.src = currentPhoto;
-      }
-    }
-
-    cvClone.querySelectorAll('.no-print').forEach(el => el.remove());
-    
-    const htmlContent = `
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV ${RESUME_DATA.name} - ${RESUME_DATA.title}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        *, *::before, *::after {
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }
-        @media screen {
-            body { background-color: #f1f5f9; padding: 40px 0; }
-            .page-container { display: flex; flex-direction: column; align-items: center; }
-            .cv-wrapper { 
-                width: 210mm; 
-                min-height: 297mm; 
-                background: white; 
-                box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
-                margin-top: 20px;
-            }
-            .floating-nav {
-                position: sticky;
-                top: 0;
-                width: 210mm;
-                background: rgba(255,255,255,0.9);
-                backdrop-filter: blur(10px);
-                padding: 15px;
-                display: flex;
-                justify-content: flex-end;
-                z-index: 1000;
-                border-bottom: 1px solid #e2e8f0;
-                border-radius: 12px 12px 0 0;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            }
-        }
-        @media print {
-            body { background: white; margin: 0; padding: 0; }
-            .floating-nav { display: none !important; }
-            .cv-wrapper { width: 210mm; height: 297mm; margin: 0; border: none; box-shadow: none; }
-            @page { size: A4; margin: 0; }
-            .print-layout { display: flex !important; flex-direction: row !important; }
-            .main-col { width: 68% !important; flex: none !important; overflow: visible !important; }
-            .side-col { width: 32% !important; flex: none !important; overflow: visible !important; background-color: #f8fafc !important; }
-        }
-        .cv-container { width: 210mm; min-height: 297mm; display: flex; flex-direction: column; }
-        .main-col { flex: 1; padding: 2.5rem; }
-        .side-col { width: 32%; background-color: #f8fafc; padding: 2rem; border-left: 1px solid #e2e8f0; }
-        a[href*="linkedin"] { color: ${THEME_COLOR} !important; text-decoration: none !important; }
-        .btn-print {
-            background-color: ${THEME_COLOR};
-            color: white; padding: 8px 20px; border-radius: 6px;
-            font-weight: bold; cursor: pointer; border: none;
-            font-size: 14px; display: flex; align-items: center; gap: 8px;
-        }
-    </style>
-</head>
-<body>
-    <div class="page-container">
-        <nav class="floating-nav">
-            <button class="btn-print" onclick="window.print()">
-                <i class="fa-solid fa-file-pdf"></i> Enregistrer en PDF
-            </button>
-        </nav>
-        <div class="cv-wrapper">
-            <div class="cv-container">
-                ${cvClone.innerHTML}
-            </div>
-        </div>
-    </div>
-</body>
-</html>`;
-
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `CV_Robert_KABA.html`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
-
   return (
     <div className="min-h-screen flex flex-col items-center sm:py-6 px-0 sm:px-4 font-sans text-slate-900 selection:bg-red-100">
       
@@ -153,12 +50,7 @@ const App: React.FC = () => {
         </div>
         
         <div className="flex gap-2">
-          <button 
-            onClick={handleExportHtml} 
-            className="flex items-center gap-2 bg-white border border-slate-300 px-4 py-2.5 rounded-lg font-bold text-xs hover:bg-slate-50 shadow-sm transition-all active:scale-95"
-          >
-            <i className="fa-solid fa-cloud-arrow-down text-slate-600"></i> Exporter HTML
-          </button>
+          
           <button onClick={handlePrint} style={{ background: isAtsMode ? '#1e293b' : THEME_COLOR }} className="flex items-center gap-3 text-white px-8 py-2.5 rounded-lg font-bold text-sm shadow-lg hover:brightness-110 active:scale-95 transition-all">
             <i className="fa-solid fa-file-pdf"></i> Imprimer / PDF
           </button>
