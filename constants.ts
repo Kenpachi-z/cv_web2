@@ -12,7 +12,7 @@ export const GRADIENT_SUBTLE = 'linear-gradient(90deg, #831010 0%, rgba(131, 16,
 
 export const RESUME_DATA: ResumeData = {
   name: "Robert KABA",
-  title: "Product Owner / Chef de Projet Digital (Espace Client)",
+  title: "Chef de Projet Digital ",
   profile: "Profil hybride alliant expertise technologique et vision produit. Expérimenté dans le pilotage de projets digitaux au sein d'environnements fortement réglementés (secteur public, banque). J'accompagne la transformation des espaces clients (Espace Client) en coordonnant les équipes techniques et métiers, avec une approche pragmatique centrée sur la qualité (recette), la conformité et l'optimisation continue de l'expérience utilisateur (UX).",
   contact: {
     location: "Paris",
