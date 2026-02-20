@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { RESUME_DATA, THEME_COLOR, GRADIENT_PRIMARY, GRADIENT_SUBTLE } from './constants';
-import Sidebar from './components/Sidebar';
+import Sidebar from './Sidebar';
 
 const App: React.FC = () => {
   const [isAtsMode, setIsAtsMode] = useState(false);
