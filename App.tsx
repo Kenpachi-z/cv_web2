@@ -265,7 +265,7 @@ const App: React.FC = () => {
                 <div className="space-y-10 relative">
                   <div className="absolute left-[7px] top-2 bottom-2 w-[1px] bg-slate-100" aria-hidden="true"></div>
                   {RESUME_DATA.experiences.map((exp, idx) => (
-                    <article key={idx} className="relative pl-8 break-inside-avoid">
+                    <article key={idx} className="relative pl-8"
                       <div className="absolute left-0 top-1.5 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm" style={{ backgroundColor: THEME_COLOR }}></div>
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1 gap-1">
                         <h3 className="text-lg font-black text-slate-900 leading-tight uppercase tracking-tight">{exp.title}</h3>
