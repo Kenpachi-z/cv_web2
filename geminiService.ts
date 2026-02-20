@@ -1,6 +1,6 @@
 
 import { GoogleGenAI } from "@google/genai";
-import { RESUME_DATA } from "../constants";
+import { RESUME_DATA } from "./constants";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
@@ -15,7 +15,7 @@ If asked about contact details, mention they are available in the sidebar but do
 export async function askQuestion(question: string) {
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-2.0-flash',
       contents: question,
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
@@ -35,7 +35,7 @@ export async function generateCoverLetter(jobDescription: string) {
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      model: 'gemini-2.0-flash',
       contents: prompt,
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
