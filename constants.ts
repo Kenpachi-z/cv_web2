@@ -16,7 +16,7 @@ export const RESUME_DATA: ResumeData = {
   profile: "Profil hybride alliant expertise technologique et vision produit. Expérimenté dans le pilotage de projets digitaux au sein d'environnements fortement réglementés (secteur public, banque). J'accompagne la transformation des espaces clients (Espace Client) en coordonnant les équipes techniques et métiers, avec une approche pragmatique centrée sur la qualité (recette), la conformité et l'optimisation continue de l'expérience utilisateur (UX).",
   contact: {
     location: "Paris",
-    phone: "06 27 35 03 02",
+    phone: "06 27 35 93 92",
     email: "robert.kaba@outlook.com",
     linkedin: "linkedin.com/in/robert-kaba"
   },
